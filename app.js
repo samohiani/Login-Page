@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
+const MongoStore = require("connect-mongo");
 
 dotenv.config();
 const app = express();
