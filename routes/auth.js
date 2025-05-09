@@ -42,18 +42,32 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
 
-  if (!user) return res.send("Invalid credentials");
+  User.findOne({ email })
+    .then((user) => {
+      if (!user) {
+        req.flash("error_msg", "Invalid credentials.");
+        return res.redirect("/login"); // Redirect back to login
+      }
 
-  const isMatch = await bcrypt.compare(password, user.password);
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if (err) throw err;
+        if (!isMatch) {
+          req.flash("error_msg", "Invalid credentials.");
+          return res.redirect("/login");
+        }
 
-  if (!isMatch) return res.send("Invalid credentials");
-
-  req.session.userId = user._id;
-  res.redirect("/dashboard");
+        req.session.userId = user._id;
+        req.flash("success_msg", "Login successful!");
+        res.redirect("/dashboard");
+      });
+    })
+    .catch((err) => {
+      req.flash("error_msg", "Something went wrong. Please try again.");
+      res.redirect("/login");
+    });
 });
 
 router.get("/reset", (req, res) => {
