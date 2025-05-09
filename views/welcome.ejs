@@ -1,0 +1,42 @@
+<!-- views/welcome.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: sans-serif;
+        background: #f0f0f0;
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      .btn {
+        padding: 10px 20px;
+        margin: 10px;
+        text-decoration: none;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 8px;
+        transition: background 0.3s;
+      }
+      .btn:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Auth App</h1>
+    <a href="/login" class="btn">Login</a>
+    <a href="/register" class="btn">Register</a>
+  </body>
+</html>
